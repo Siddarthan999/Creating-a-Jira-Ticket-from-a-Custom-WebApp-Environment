@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+            <p id="errorMessage" class="error"></p> <!-- Inline error message -->
+        </div>
+        
+        <div id="welcomeContainer">
+            <div id="navBar">
+                <span>Welcome, <span id="userDisplay"></span></span>
+                <a onclick="visitRoute('home')">Home</a>
+                <a onclick="visitRoute('dashboard')">Dashboard</a>
+                <a onclick="visitRoute('profile')">Profile</a>
+                <a onclick="visitRoute('settings')">Settings</a>
+                <a onclick="visitRoute('help')">Help</a>
+            </div>
+
+            <div id="rightPanel">
+                <p>Session time: <span id="sessionTime">0</span> seconds</p>
+                <button onclick="logout()">Logout</button>
+            </div>
+
+            <div id="home" class="page"><h3>Home Page</h3><p>Welcome to the home page!</p></div>
+            <div id="dashboard" class="page"><h3>Dashboard</h3><p>Here is your dashboard.</p></div>
+            <div id="profile" class="page"><h3>Profile</h3><p>View and edit your profile.</p></div>
+            <div id="settings" class="page"><h3>Settings</h3><p>Update your preferences here.</p></div>
+            <div id="help" class="page"><h3>Help</h3><p>Find answers to your questions.</p></div>
+        </div>
+
+        <div id="toast" class="toast">Logged out successfully!</div> <!-- Toast message -->
+
+        <script src="script.js"></script>
+        
+    </body>
+</html>
