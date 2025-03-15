@@ -81,7 +81,7 @@ function showToast(message) {
 }
 
 async function createJiraTicket(summary, description, issueType) {
-    await fetch("http://localhost:3000/create-jira", {
+    await fetch("https://creating-a-jira-ticket-from-a-custom-we-siddarthan999s-projects.vercel.app/create-jira", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ summary, description, issueType })
