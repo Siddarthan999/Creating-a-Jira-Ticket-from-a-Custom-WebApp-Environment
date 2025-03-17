@@ -1,12 +1,12 @@
 let users = {
-    "Siddarthan": { username: "Siddarthan Natarajan", password: "root", email: "siddarthan@gmail.com", dob: "2004-05-26", address: "Chennai, Tamil Nadu", phone: "1234567890", country: "India" },
-    "Sudharshna": { username: "Sudharshna Lakshmi", password: "root", email: "sudharshna@gmail.com", dob: "2000-01-01", address: "Chennai, Tamil Nadu", phone: "0987654321", country: "India" }
+    "Siddarthan": { username: "Siddarthan Natarajan", password: "root", email: "siddarthan@gmail.com", dob: "2004-05-26", address: "Chennai, Tamil Nadu", phone: "1234567890", country: "India", jiraIssueKey: null },
+    "Sudharshna": { username: "Sudharshna Lakshmi", password: "root", email: "sudharshna@gmail.com", dob: "2000-01-01", address: "Chennai, Tamil Nadu", phone: "0987654321", country: "India", jiraIssueKey: null }
 };
 
 let sessionTimer, startTime, loginTimestamp;
 let visitedRoutes = [];
 
-function login() {
+async function login() {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
     let errorMessage = document.getElementById("errorMessage");
@@ -26,10 +26,15 @@ function login() {
             }, 1000);
 
             visitRoute("home");
-            
+
             let user = users[username];
             let description = `Username: ${user.username}\nEmail: ${user.email}\nLogin Time: ${loginTimestamp} IST`;
-            createJiraTicket("Authentication Successful", description, "Incident");
+
+            // Create Jira ticket and store the issue key for later update
+            let response = await createJiraTicket("Login Event Recorded", description, "Session Timings");
+            if (response.issueKey) {
+                users[username].jiraIssueKey = response.issueKey;
+            }
         } else {
             errorMessage.innerText = "Incorrect password. Please try again.";
             let user = users[username];
@@ -49,7 +54,7 @@ function visitRoute(route) {
     document.getElementById(route).style.display = 'block';
 }
 
-function logout() {
+async function logout() {
     clearInterval(sessionTimer);
     let sessionDuration = Math.floor((Date.now() - startTime) / 1000);
     let logoutTimestamp = new Date().toLocaleString();
@@ -62,13 +67,16 @@ function logout() {
     let visitedPages = visitedRoutes.length > 0 ? visitedRoutes.join(", ") : "None";
     let description = `Username: ${user.username}\nEmail: ${user.email}\nSession Duration: ${sessionDuration} seconds\nLogin Time: ${loginTimestamp} IST\nLogout Time: ${logoutTimestamp} IST\nVisited Routes: ${visitedPages}`;
 
-    createJiraTicket("User Logged Out", description, "Session Timings");
-    // location.reload();
+    // Check if a Jira issue key exists for the user, update instead of creating a new ticket
+    if (user.jiraIssueKey) {
+        await updateJiraTicket(user.jiraIssueKey, description);
+    } else {
+        await createJiraTicket("User Logged Out", description, "Session Timings");
+    }
 
     setTimeout(() => {
         location.reload();
     }, 1500);
-    
 }
 
 function showToast(message) {
@@ -81,9 +89,20 @@ function showToast(message) {
 }
 
 async function createJiraTicket(summary, description, issueType) {
-    await fetch("https://creating-a-jira-ticket-from-a-custom-we-siddarthan999s-projects.vercel.app/create-jira", {
+    let response = await fetch("http://localhost:3000/create-jira", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ summary, description, issueType })
+    });
+
+    let data = await response.json();
+    return data;
+}
+
+async function updateJiraTicket(issueKey, updatedDescription) {
+    await fetch("http://localhost:3000/update-jira", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ issueKey, updatedDescription })
     });
 }
