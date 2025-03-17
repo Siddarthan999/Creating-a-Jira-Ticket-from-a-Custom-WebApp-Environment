@@ -31,7 +31,7 @@ async function login() {
             let description = `Username: ${user.username}\nEmail: ${user.email}\nLogin Time: ${loginTimestamp} IST`;
 
             // Create Jira ticket and store the issue key for later update
-            let response = await createJiraTicket("Login Event Recorded", description, "Session Timings");
+            let response = await createJiraTicket(`Login Event Recorded - ${user.username}`, description, "Session Timings");
             if (response.issueKey) {
                 users[username].jiraIssueKey = response.issueKey;
             }
