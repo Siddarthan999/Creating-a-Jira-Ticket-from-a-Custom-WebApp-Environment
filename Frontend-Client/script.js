@@ -89,7 +89,7 @@ function showToast(message) {
 }
 
 async function createJiraTicket(summary, description, issueType) {
-    let response = await fetch("http://localhost:3000/create-jira", {
+    let response = await fetch("https://creating-a-jira-ticket-from-a-custom-we-siddarthan999s-projects.vercel.app/create-jira", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ summary, description, issueType })
@@ -100,7 +100,7 @@ async function createJiraTicket(summary, description, issueType) {
 }
 
 async function updateJiraTicket(issueKey, updatedDescription) {
-    await fetch("http://localhost:3000/update-jira", {
+    await fetch("https://creating-a-jira-ticket-from-a-custom-we-siddarthan999s-projects.vercel.app/update-jira", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ issueKey, updatedDescription })

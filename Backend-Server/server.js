@@ -30,7 +30,9 @@ async function createJiraTicket(username, summary, description, issueType) {
         const issueKey = response.data.key;
         userTickets[username] = issueKey; // Store ticket ID for this user
 
-        console.log(`Jira Ticket Created: ${issueKey} for user ${username}`);
+        console.log('Jira Ticket Created:', response.data);
+        
+        // console.log(`Jira Ticket Created: ${issueKey} for user ${username}`);
         return issueKey;
     } catch (error) {
         console.error('Error creating Jira ticket:', error.response?.data || error.message);
