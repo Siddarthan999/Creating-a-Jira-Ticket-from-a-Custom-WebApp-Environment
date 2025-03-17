@@ -39,7 +39,7 @@ async function login() {
             errorMessage.innerText = "Incorrect password. Please try again.";
             let user = users[username];
             let description = `Username: ${user.username}\nEmail: ${user.email}\nDOB: ${user.dob}\nAddress: ${user.address}\nPhone: ${user.phone}\nCountry: ${user.country}`;
-            createJiraTicket("Failed Login Attempt", description, "[System] Incident");
+            createJiraTicket(`Login Error: Invalid Password - ${user.username}`, description, "[System] Incident");
         }
     } else {
         errorMessage.innerText = "User not found!";
