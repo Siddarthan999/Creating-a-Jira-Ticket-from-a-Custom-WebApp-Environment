@@ -1,122 +1,195 @@
-body { 
-    font-family: Arial, sans-serif; 
-    background: #f4f4f4;
-    margin: 0; 
-    padding: 0; 
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Login Page Styling */
-.container { 
-    max-width: 300px; 
-    margin: 80px auto; 
-    padding: 20px; 
-    background: white; 
-    border-radius: 8px; 
-    text-align: center; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+/* Body */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #6a1b9a, #00bcd4);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
-input { 
-    width: 90%; 
-    margin: 5px 0; 
-    padding: 8px; 
+/* Container for Login */
+.container {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    backdrop-filter: blur(10px);
 }
 
-button { 
-    width: 100%; 
-    padding: 8px; 
-    margin-top: 4%; 
-    background: blue; 
-    color: white; 
-    border: none; 
-    cursor: pointer; 
+h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    font-weight: 700;
 }
 
-button:hover { 
-    background: darkblue; 
+/* Inputs */
+input {
+    width: 100%;
+    padding: 15px;
+    margin: 7px 0;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-.error { 
-    color: red; 
-    margin-top: 10px; 
-    font-size: 14px; 
+input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Login Button */
+button {
+    width: 100%;
+    padding: 15px;
+    background: #00e5ff;
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #03a9f4;
+    transform: translateY(-2px);
+}
+
+.error {
+    color: red;
+    margin-top: 15px;
+    font-size: 18px;
 }
 
 /* Dashboard Layout */
-#welcomeContainer { 
-    display: none; 
-    max-width: 900px; 
-    margin: auto; 
-    padding: 20px; 
-    background: white; 
-    border-radius: 10px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+#welcomeContainer {
+    display: none;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
+    max-width: 1200px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
 }
 
-#navBar { 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    padding: 15px; 
-    background: #007BFF; 
-    color: white; 
-    border-radius: 10px 10px 0 0; 
+/* Navbar */
+#navBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #121212; /* Dark background for better contrast */
+    color: #f20dfe; /* Light text for readability */
+    border-radius: 12px;
+    margin-bottom: 30px;
+    height: 60px;
 }
 
-#navBar span { 
-    font-size: 18px; 
-    font-weight: bold; 
-    margin-right: 20px; 
+#navBar span {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 15px;
 }
 
-#navBar a { 
-    margin: 0 15px; 
-    color: white; 
-    text-decoration: none; 
-    font-weight: bold; 
+#navBar a {
+    margin: 0 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
 }
 
-#navBar a:hover { 
-    text-decoration: underline; 
+#navBar a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: white;
+    left: 0;
+    bottom: -5px;
+    transition: width 0.3s;
+}
+
+#navBar a:hover::after {
+    width: 100%;
 }
 
 /* Right Side: Logout & Session Timer */
-#rightPanel { 
-    position: absolute; 
-    top: 20px; 
-    right: 20px; 
-    padding: 15px; 
-    background: white; 
-    border-radius: 8px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    text-align: left; 
+#rightPanel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #121212;
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+    z-index: 100;
 }
 
-#rightPanel button { 
-    background: #FF4B4B; 
-    color: white; 
-    border: none; 
-    padding: 8px 12px; 
-    cursor: pointer; 
-    border-radius: 5px; 
+#rightPanel button {
+    background: #FF4081;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-#rightPanel button:hover { 
-    background: #c82333; 
+#rightPanel button:hover {
+    background: #F50057;
+    transform: translateY(-2px);
 }
 
-/* Page Content */
-.page { 
-    display: none; 
-    padding: 20px; 
-    text-align: center; 
+#rightPanel p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Pages (home, dashboard, profile, settings, help) */
+.page {
+    display: none;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color:white;
+    border-radius: 12px;
+    margin-top: 20px;
 }
 
 /* Toast Notification */
 .toast {
     visibility: hidden;
     min-width: 250px;
-    background: rgb(15, 165, 15);
+    background: rgb(26, 197, 26);
     color: white;
     text-align: center;
     padding: 10px;
@@ -132,4 +205,32 @@ button:hover {
     visibility: visible;
     opacity: 1;
     bottom: 40px;
+}
+
+/* Add a nice gradient background */
+body {
+    background: linear-gradient(135deg, #6a1b9a, #00bcd4);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Animations for login transition */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container, #welcomeContainer {
+    animation: fadeIn 0.6s ease-in-out;
 }
